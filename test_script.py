@@ -27,7 +27,7 @@ def skew_plot(fasta_file):
     pl.plot(data, filename='skew-graph')
 
 
-# skew_plot("bacteria_1.fasta")
+skew_plot("bacteria_1.fasta")
 
 def nucl_content(fasta_file):
     nucleotides = {"A": 0, "T": 0, "G": 0, "C": 0}
@@ -44,4 +44,4 @@ def nucl_content(fasta_file):
     pl.plot(data, filename='content-graph')
 
 
-nucl_content("bacteria_1.fasta")
+# nucl_content("bacteria_1.fasta")
