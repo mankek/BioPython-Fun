@@ -3,8 +3,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from Bio import SeqIO
+from Bio.SeqUtils import GC
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
+import os
 
 # Ideas: Allow for database queries as input (http://biopython.org/DIST/docs/tutorial/Tutorial.html#chapter:entrez)
 # Allow for multiple files and graphs to be open in one window
@@ -28,14 +30,21 @@ def skew_plot(fasta_file):
 
 
 def nucl_content(fasta_file):
-    nucleotides = {"A": 0, "T": 0, "G": 0, "C": 0}
+    nucleotides = {"A": 0, "T": 0, "G": 0, "C": 0, "N": 0}
     for record in SeqIO.parse(fasta_file, "fasta"):
         for s in range(0, len(record.seq)):
             nucleotides[record.seq[s]] += 1
 
-    x = ["A", "T", "G", "C"]
+    x = ["A", "T", "G", "C", "N"]
 
-    y = [nucleotides["A"], nucleotides["T"], nucleotides["G"], nucleotides["C"]]
+    y = [nucleotides["A"], nucleotides["T"], nucleotides["G"], nucleotides["C"], nucleotides["N"]]
+
+    return [x, y]
+
+
+def gc_content(fasta_file):
+    y = sorted(GC(record.seq) for record in SeqIO.parse(fasta_file, "fasta"))
+    x = [i for i in range(1, len(y)+1)]
 
     return [x, y]
 
@@ -49,7 +58,7 @@ colors = {
     'text': '#7FDBFF'
 }
 
-app.layout = html.Div([
+app.layout = html.Div(style={'backgroundColor': '#cceeff'}, children=[
     html.H1(
         children="FASTA Dash"
     ),
@@ -63,7 +72,8 @@ app.layout = html.Div([
         dcc.RadioItems(id="graph-type",
             options=[
                 {'label': 'Skew Plot', 'value': 'SP'},
-                {'label': 'Nucleotide Content', 'value': 'NC'}
+                {'label': 'Nucleotide Content', 'value': 'NC'},
+                {'label': 'GC%', 'value': 'GC'}
             ],
             value='SP',
             labelStyle={'display': 'inline-block'}
@@ -95,10 +105,11 @@ def update_div(input_value, graph_type):
             'layout': go.Layout(
                 xaxis={'title': 'Nucleotide Position'},
                 yaxis={'title': 'Skew'},
-                margin={'l': 50, 'b': 40, 't': 10, 'r': 10}
+                margin={'l': 70, 'b': 10, 't': 10, 'r': 10}
             )
         }
     else:
+        input_value = os.path.join("Input_Files", input_value)
         if graph_type == "SP":
             return {
                 'data': [
@@ -109,13 +120,13 @@ def update_div(input_value, graph_type):
                     )
                 ],
                 'layout': go.Layout(
-                    title=input_value,
+                    title=input_value.split("\\")[-1],
                     xaxis={'title': 'Nucleotide Position'},
                     yaxis={'title': 'Skew'},
                     margin={'l': 40, 'b': 40, 't': 40, 'r': 10}
                 )
             }
-        else:
+        elif graph_type == "NC":
             return {
                 'data': [
                     go.Bar(
@@ -125,9 +136,25 @@ def update_div(input_value, graph_type):
                     )
                 ],
                 'layout': go.Layout(
-                    title=input_value,
+                    title=input_value.split("\\")[-1],
                     xaxis={'title': 'Nucleotide'},
                     yaxis={'title': 'Amount'},
+                    margin={'l': 40, 'b': 40, 't': 40, 'r': 10}
+                )
+            }
+        elif graph_type == "GC":
+            return {
+                'data': [
+                    go.Scatter(
+                        x=gc_content(input_value)[0],
+                        y=gc_content(input_value)[1],
+                        opacity=0.7,
+                    )
+                ],
+                'layout': go.Layout(
+                    title=input_value.split("\\")[-1],
+                    xaxis={'title': 'Genes'},
+                    yaxis={'title': 'GC%'},
                     margin={'l': 40, 'b': 40, 't': 40, 'r': 10}
                 )
             }
