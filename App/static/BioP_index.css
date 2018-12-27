@@ -1,0 +1,62 @@
+body {
+    background-color: #006699;
+}
+
+#query_btn, #upload_btn, #help, #chart {
+    position: relative;
+    float: left;
+    height: 40px;
+    width: 25%;
+}
+
+#retrieval {
+    width: 50%;
+    height: 40px;
+    margin: auto;
+    border: 5px solid #ffe6b3;
+}
+
+#query {
+    display: none;
+    padding-right: 15px;
+    width: 50%;
+    height: 200px;
+    background-color: #ffe6b3;
+    margin: auto;
+    font-size: 20px;
+    border: 5px solid grey;
+    overflow: auto;
+}
+
+#left {
+    padding-left: 15px;
+    padding-right: 30px;
+    position: relative;
+    float: left;
+    height: 200px;
+    overflow: auto;
+    text-align: center;
+}
+
+label, p {
+    padding-left: 30px;
+}
+
+.query {
+    float: right;
+}
+
+#upload {
+    display: none;
+    width: 50%;
+    height: 200px;
+    background-color: #ffe6b3;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;
+    border: 5px solid grey;
+}
+input[type=file] {
+    background-color: white;
+}
+

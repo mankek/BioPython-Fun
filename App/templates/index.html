@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Let's Have Some Biopython Fun!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='BioP_index.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/BioP_index.js"></script>
+</head>
+<body>
+    <datalist id="Nucleotide">
+        <option value="fasta">FASTA</option>
+        <option value="gb">GenBank</option>
+        <option value="ft">Feature Table</option>
+    </datalist>
+
+    <h1>Hello There!</h1>
+    <div id="retrieval">
+        <button id="query_btn" type="button">Database Query</button>
+        <button id="upload_btn" type="button">Upload File</button>
+        <button id="help" type="button" disabled>Help</button>
+        <button id="chart" type="button" disabled>Chart</button>
+    </div>
+    <br><br><br>
+    <div id="query">
+        <form action="/query" id="query_form" method="post">
+            <div id="left">
+                <h3 style="text-decoration: underline">Database Options</h3>
+                <input type="radio" name="database" value="nuccore" id="nuccore"> Nucleotide<br>
+                <!--<input type="radio" name="Nucleotide" value="Nucleotide"> Nucleotide<br>-->
+            </div>
+            <br>
+            <label>Accession Number</label>  <input type="text" name="id"><br><br>
+            <label>Retrieval Type</label>  <input name="type" id="type"><br><br>
+            <label>Retrieval Mode is automatically set to "text".</label><br><br>
+            <button name="action" type="submit" value="query" class="query">Submit</button>
+            <button name="action" type="submit" value="preview" class="query">Preview</button>
+        </form>
+    </div>
+    <div id="upload">
+        <form action="/upload" id="upload_form" method="post">
+            <br>
+            <label>Upload File</label><br><br>
+            <input type="file" name="file"><br><br>
+            <button name="action" type="submit" value="query">Submit</button>
+        </form>
+    </div><br><br><br>
+</body>
+</html>
