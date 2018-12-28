@@ -10,7 +10,7 @@ body {
 }
 
 #retrieval {
-    width: 50%;
+    width: 60%;
     height: 40px;
     margin: auto;
     border: 5px solid #ffe6b3;
@@ -19,7 +19,7 @@ body {
 #query {
     display: none;
     padding-right: 15px;
-    width: 50%;
+    width: 60%;
     height: 200px;
     background-color: #ffe6b3;
     margin: auto;
@@ -30,33 +30,81 @@ body {
 
 #left {
     padding-left: 15px;
-    padding-right: 30px;
+    padding-right: 15px;
     position: relative;
     float: left;
     height: 200px;
     overflow: auto;
     text-align: center;
+    border-right: 5px solid grey;
 }
 
-label, p {
-    padding-left: 30px;
+label {
+    padding-left: 15px;
 }
 
-.query {
+.forms {
     float: right;
 }
 
 #upload {
     display: none;
-    width: 50%;
+    width: 60%;
     height: 200px;
     background-color: #ffe6b3;
     margin: auto;
     font-size: 20px;
     text-align: center;
+    overflow: auto;
     border: 5px solid grey;
+    padding-right: 15px;
 }
+
+#left2 {
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    float: left;
+    height: 200px;
+    overflow: auto;
+    text-align: center;
+    border-right: 5px solid grey;
+}
+
 input[type=file] {
     background-color: white;
+}
+
+#files {
+    width: 60%;
+    height: 200px;
+    background-color: #ffe6b3;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;
+    overflow: auto;
+    border: 5px solid grey;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+th {
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 30px;
+    background-color: #5D749D;
+}
+tr {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid black;
+    text-align:center;
+}
+td {
+    background-color: #9fadc6;
+    border: 1px solid black;
+    font-size: 20px;
 }
 

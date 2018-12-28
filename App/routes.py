@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from flask import Flask, render_template, url_for, request, jsonify, redirect
-from App.methods import retrieve, preview, upload
+from App.methods import retrieve, preview, upload, get_files, global_record
 
 app = Flask(__name__)
 
@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    return render_template("index.html")
+    get_files()
+    return render_template("index.html", files=global_record)
 
 
 @app.route('/query', methods=['POST'])
@@ -30,6 +31,7 @@ def db_query():
 @app.route('/upload', methods=['POST'])
 def file_upload():
     file_path = request.form["file"]
-    upload(file_path)
+    db = request.form["database"]
+    upload(file_path, db)
     return redirect(url_for("index"))
 
