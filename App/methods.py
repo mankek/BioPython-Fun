@@ -8,7 +8,7 @@ global_record = {}
 
 
 def get_db(db):
-    db_dict = {"nuccore": "Nucleotide", "NA": "Not Available"}
+    db_dict = {"nuccore": "Nucleotide", "NA": "Not Available", "protein": "Protein"}
     return db_dict[db]
 
 
@@ -30,7 +30,11 @@ def preview(db, acc_num, rettype):
     result = []
     retmode = "text"
     with Entrez.efetch(db=db, id=acc_num, rettype=rettype, retmode=retmode) as handle:
-        for seq_rec in SeqIO.parse(handle, rettype):
+        if rettype == "gp":
+            parse_rettype = "gb"
+        else:
+            parse_rettype = rettype
+        for seq_rec in SeqIO.parse(handle, parse_rettype):
             result.append({seq_rec.name: {"id": seq_rec.id, "description": seq_rec.description,
                                           "Sequence length": len(seq_rec), "features": len(seq_rec.features),
                                           "from": seq_rec.annotations["source"]}})
@@ -41,12 +45,15 @@ def upload(file_path, db):
     path = os.path.abspath(__file__)
     files_path = "\\".join(path.split("\\")[0:6])
     if os.path.exists(file_path):
+        if db == "NA":
+            db = guess_database(file_path)
         shutil.copyfile(file_path, os.path.join(files_path, "Files", file_path.split("\\")[-1]))
         global global_record
         global_record[file_path.split("\\")[-1].split(".")[0]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
         return "done"
     else:
-        return "File doesn't exist, uwu."
+        print(file_path)
+        return print("File doesn't exist, uwu.")
 
 
 def get_files():
@@ -62,15 +69,28 @@ def get_files():
             if i in files:
                 continue
             else:
-                global_record[i.split(".")[0]] = {"db": "Not Available", "rettype": i.split(".")[-1]}
+                i_path = os.path.join(files_path, i)
+                db = guess_database(i_path)
+                global_record[i.split(".")[0]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
     for t in files:
         if not os.path.exists(os.path.join(files_path, t)):
-            global_record.pop(t.split(".")[0])
+            if len(t.split(".")) > 2:
+                global_record.pop(t.split(".")[0] + "." + t.split(".")[1])
+            else:
+                global_record.pop(t.split(".")[0])
         else:
             continue
     return "done"
 
 
-
+def guess_database(file):
+    file_rettype = file.split("\\")[-1].split(".")[-1]
+    if file_rettype == "gp":
+        return "protein"
+    for rec in SeqIO.parse(file, file_rettype):
+        if rec.seq[0] == "M":
+            return "protein"
+        else:
+            return "nuccore"
 
 

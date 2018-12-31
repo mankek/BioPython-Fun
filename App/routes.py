@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/index', methods=['GET'])
 def index():
     get_files()
-    return render_template("index.html", files=global_record)
+    return render_template("index.html", files=global_record, prev="None")
 
 
 @app.route('/query', methods=['POST'])
@@ -25,12 +25,13 @@ def db_query():
         acc_num = request.form["id"]
         rettype = request.form["type"]
         result = preview(db, acc_num, rettype)
-        return jsonify(result)
+        return render_template("index.html", files=global_record, prev=result)
 
 
 @app.route('/upload', methods=['POST'])
 def file_upload():
     file_path = request.form["file"]
+    print(file_path)
     db = request.form["database"]
     upload(file_path, db)
     return redirect(url_for("index"))

@@ -8,9 +8,29 @@
     <script src="/static/BioP_index.js"></script>
 </head>
 <body>
-    <datalist id="Nucleotide">
+    <script> var preview = {{ prev|safe|tojson }}</script>
+
+    <datalist id="Nucleotide_list">
         <option value="fasta">FASTA</option>
         <option value="gb">GenBank</option>
+        <option value="ft">Feature Table</option>
+    </datalist>
+
+    <datalist id="Protein_list">
+        <option value="fasta">FASTA</option>
+        <option value="gp">GenPept</option>
+        <option value="ft">Feature Table</option>
+    </datalist>
+
+    <datalist id="nucleotide_chart_list">
+        <option value="comp">Nucleotide Composition</option>
+        <option value="skew">GC Skew</option>
+        <option value="GC">GC%</option>
+        <option value="ft">Feature Table</option>
+    </datalist>
+
+    <datalist id="peptide_chart_list">
+        <option value="comp">Peptide Composition</option>
         <option value="ft">Feature Table</option>
     </datalist>
 
@@ -18,20 +38,21 @@
     <div id="retrieval">
         <button id="query_btn" type="button">Database Query</button>
         <button id="upload_btn" type="button">Upload File</button>
-        <button id="help" type="button" disabled>Help</button>
-        <button id="chart" type="button" disabled>Chart</button>
+        <button id="chart_btn" type="button">Chart</button>
+        <button id="help_btn" type="button">Help</button>
     </div>
     <br><br>
     <div id="query">
         <form action="/query" id="query_form" method="post">
             <div id="left">
                 <h3 style="text-decoration: underline">Database Options</h3>
-                <input type="radio" name="database" value="nuccore" id="nuccore"> Nucleotide<br>
-                <!--<input type="radio" name="Nucleotide" value="Nucleotide"> Nucleotide<br>-->
+                <input type="radio" name="database" value="nuccore" id="nuccore" class="radio_q"> Nucleotide<br>
+                <input type="radio" name="database" value="protein" id="protein" class="radio_q"> Protein<br>
+                <!--<input type="radio" name="database" value="Nucleotide"> Nucleotide<br>-->
             </div>
             <br>
             <label>Accession Number: </label>  <input type="text" name="id"><br><br>
-            <label>Retrieval Type: </label>  <input name="type" id="type"><br><br>
+            <label>Retrieval Type: </label>  <input name="type" id="type" autocomplete="off" disabled><br><br>
             <label>Retrieval Mode is automatically set to "text".</label><br><br>
             <button name="action" type="submit" value="query" class="forms">Submit</button>
             <button name="action" type="submit" value="preview" class="forms">Preview</button>
@@ -42,6 +63,7 @@
             <div id="left2">
                 <h3 style="text-decoration: underline">Database Options</h3>
                 <input type="radio" name="database" value="nuccore" id="nuccore2"> Nucleotide<br>
+                <input type="radio" name="database" value="protein"> Protein<br>
                 <input type="radio" name="database" value="NA"> Not Available<br>
                 <!--<input type="radio" name="Nucleotide" value="Nucleotide"> Nucleotide<br>-->
             </div>
@@ -49,7 +71,44 @@
             <label>File: </label><input type="file" name="file"><br><br>
             <button name="action" type="submit" value="upload" class="forms">Submit</button>
         </form>
-    </div><br><br><br>
+    </div>
+    <div id="help">
+        <h3>Instructions</h3>
+        <p>Clicking on a button will cause a certain section to appear; clicking on that same button again will cause
+        the section to disappear.</p>
+        <b>Database Query</b><br>
+        <p>This form takes in the accession number of the desired record, the database from which the record should
+            be pulled, and the format the record should have (which is not available until a specific database is chosen)
+            and fetches the file from the NCBI website.</p>
+        <p>If the submit button is pressed, the file is fetched and added to the collection of saved files available for
+        analysis. If the preview button is pressed, the file is fetched and processed for information (id, description,
+            # of features, length, and origin); this information is displayed in a separate window and the file is not
+        saved.</p>
+        <b>Upload File</b>
+        <p>This form allows the user to browse and upload files to the collection of saved files available for analysis.
+        Only files that are local with respect to the directory containing the application can be uploaded. If the chosen
+        database is Not Available, the application will attempt to identify a database that fits the record.</p>
+        <b>File Collection</b>
+        <p>Once a file is uploaded or a query is submitted, the resulting record file is added to a collection. The files
+        available in the collection can be viewed in the Files Available table. Once a file is added, it cannot be
+        removed unless it is directly removed or deleted from the Files directory of the application.</p>
+    </div>
+    <div id="chart">
+        <form action="/chart>" id="chart_form" method="post">
+            <div id="chart_left">
+                <h3>Files Available</h3>
+                {% for key in files.keys() %}
+                <input type="radio" id="{{ key }}" value="{{ files[key]['db'] }}" class="radio_c"> {{ key }}<br>
+                {% endfor %}
+            </div>
+            <div>
+                <br>
+                <h3>Charts Available</h3>
+                <input id="charts" name="charts" disabled>
+            </div>
+        </form>
+    </div>
+    <br><br><br>
     <div id="files">
         <h3>Files Available</h3>
         <table>

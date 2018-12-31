@@ -2,7 +2,7 @@ body {
     background-color: #006699;
 }
 
-#query_btn, #upload_btn, #help, #chart {
+#query_btn, #upload_btn, #help_btn, #chart_btn {
     position: relative;
     float: left;
     height: 40px;
@@ -47,6 +47,10 @@ label {
     float: right;
 }
 
+.radio_q {
+    float: right;
+}
+
 #upload {
     display: none;
     width: 60%;
@@ -75,9 +79,44 @@ input[type=file] {
     background-color: white;
 }
 
-#files {
+#chart {
+    display: none;
     width: 60%;
     height: 200px;
+    background-color: #ffe6b3;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;
+    overflow: auto;
+    border: 5px solid grey;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#chart_left {
+    height: 200px;
+    padding-right: 15px;
+    float: left;
+    border-right: 5px solid grey;
+    text-align: center;
+}
+
+#help {
+    display: none;
+    width: 60%;
+    height: 450px;
+    background-color: #ffe6b3;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;
+    overflow: auto;
+    border: 5px solid grey;
+    padding-right: 15px;
+}
+
+#files {
+    width: 60%;
+    height: 300px;
     background-color: #ffe6b3;
     margin: auto;
     font-size: 20px;
@@ -94,7 +133,7 @@ th {
     border: 1px solid black;
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 30px;
+    font-size: 22px;
     background-color: #5D749D;
 }
 tr {
