@@ -14,15 +14,16 @@ def get_db(db):
 
 def retrieve(db, acc_num, rettype):
     retmode = "text"
+    files_path = os.path.join("\\".join(os.path.abspath(__file__).split("\\")[0:-1]), "Files")
     for i in acc_num.split(","):
-        filename = "App\\Files\\" + i + "." + rettype
-        handle = Entrez.efetch(db=db, id=i, rettype=rettype, retmode=retmode)
+        filename = os.path.join(files_path, i.lstrip(" ") + "." + rettype)
+        handle = Entrez.efetch(db=db, id=i, rettype=rettype, retmode=retmode, api_key="b88d297c7d1daf2c6d6c5a9a6efadcc82209")
         out_handle = open(filename, "w")
         out_handle.write(handle.read())
         out_handle.close()
         handle.close()
         global global_record
-        global_record[i] = {"db": get_db(db), "rettype": rettype}
+        global_record[i.lstrip(" ")] = {"db": get_db(db), "rettype": rettype}
     return "done"
 
 
@@ -86,11 +87,12 @@ def get_files():
 def guess_database(file):
     file_rettype = file.split("\\")[-1].split(".")[-1]
     if file_rettype == "gp":
-        return "protein"
+        file_rettype = "gb"
     for rec in SeqIO.parse(file, file_rettype):
         if rec.seq[0] == "M":
             return "protein"
         else:
             return "nuccore"
+
 
 
