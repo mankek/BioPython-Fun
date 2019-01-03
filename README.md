@@ -22,8 +22,8 @@ All downloaded files can be found in the Files directory within the App director
 No virtual environment or requirements file yet, so you'll need Flask, Python 3, and Biopython already installed on your 
 machine.
 
-A rudimentary test suite that uses unittest tests some of the functions found in methods.py is also available; once more tests are
-made, I'll begin implementing logic to deal with errors.
+A rudimentary test suite that uses unittest to test the functions found in methods.py is also available; Once the application
+has all the functions I'm aiming for, I'll begin implementing logic to deal with exception and error cases.
 
 Navigate to within the project directory and run:
 
