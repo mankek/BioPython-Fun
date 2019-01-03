@@ -73,6 +73,7 @@ $(document).ready(function(){
 
     if (preview != "None") {
         var myWindow = window.open("", "MsgWindow");
+        myWindow.document.writeln("<b>The result is as follows:</b>")
         myWindow.document.write(String(preview))
         location.replace("http://127.0.0.1:5000/");
     }

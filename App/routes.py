@@ -39,6 +39,7 @@ def file_upload():
 @app.route('/chart', methods=['POST'])
 def show_chart():
     if request.form["action"] == "chart":
-        return render_template("BioP_chart.html")
+        title = request.form["charts"]
+        return render_template("BioP_chart.html", title=title)
     elif request.form["action"] == "previous":
         return redirect(url_for("index"))
