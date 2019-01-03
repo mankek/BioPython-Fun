@@ -1,0 +1,15 @@
+body {
+    background-color: #006699;
+}
+
+#return_form {
+    float: left;
+}
+
+#chart_container {
+    margin: auto;
+    height: 550px;
+    width: 70%;
+    background-color: #ffe6b3;
+    border: 5px solid grey;
+}

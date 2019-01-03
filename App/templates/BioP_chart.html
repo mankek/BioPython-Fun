@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Let's Have Some BioPython Fun!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='BioP_chart.css') }}">
+</head>
+<body>
+<div id="return_form">
+    <form action="/chart" method="post">
+        <button type="submit" name="action" value="previous">Return to Main Page</button>
+    </form>
+</div><br>
+    <div id="chart_container"></div>
+</body>
+</html>

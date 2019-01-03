@@ -90,7 +90,7 @@
         removed unless it is directly removed or deleted from the Files directory of the application.</p>
     </div>
     <div id="chart">
-        <form action="/chart>" id="chart_form" method="post">
+        <form action="/chart" id="chart_form" method="post">
             <div id="chart_left">
                 <h3>Files Available</h3>
                 {% for key in files.keys() %}
@@ -101,7 +101,8 @@
                 <br>
                 <h3>Charts Available</h3>
                 <input id="charts" name="charts" disabled>
-            </div>
+            </div><br><br>
+            <button type="submit" name="action" value="chart">Submit</button>
         </form>
     </div>
     <br><br><br>

@@ -30,15 +30,16 @@ def retrieve(db, acc_num, rettype):
 def preview(db, acc_num, rettype):
     result = []
     retmode = "text"
-    with Entrez.efetch(db=db, id=acc_num, rettype=rettype, retmode=retmode) as handle:
-        if rettype == "gp":
-            parse_rettype = "gb"
-        else:
-            parse_rettype = rettype
-        for seq_rec in SeqIO.parse(handle, parse_rettype):
-            result.append({seq_rec.name: {"id": seq_rec.id, "description": seq_rec.description,
-                                          "Sequence length": len(seq_rec), "features": len(seq_rec.features),
-                                          "from": seq_rec.annotations["source"]}})
+    for i in acc_num.split(","):
+        with Entrez.efetch(db=db, id=i.lstrip(" "), rettype=rettype, retmode=retmode, api_key="b88d297c7d1daf2c6d6c5a9a6efadcc82209") as handle:
+            if rettype == "gp":
+                parse_rettype = "gb"
+            else:
+                parse_rettype = rettype
+            for seq_rec in SeqIO.parse(handle, parse_rettype):
+                result.append({seq_rec.name: {"id": seq_rec.id, "description": seq_rec.description,
+                                              "Sequence length": len(seq_rec), "features": len(seq_rec.features),
+                                              "from": seq_rec.annotations["source"] if "source" in seq_rec.annotations.keys() else "NA"}})
     return result
 
 
@@ -50,7 +51,10 @@ def upload(file_path, db):
             db = guess_database(file_path)
         shutil.copyfile(file_path, os.path.join(files_path, "Files", file_path.split("\\")[-1]))
         global global_record
-        global_record[file_path.split("\\")[-1].split(".")[0]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
+        if len(file_path.split("\\")[-1].split(".")) > 2:
+            global_record[file_path.split("\\")[-1].split(".")[0] + "." + file_path.split("\\")[-1].split(".")[1]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
+        else:
+            global_record[file_path.split("\\")[-1].split(".")[0]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
         return "done"
     else:
         print(file_path)
@@ -72,7 +76,10 @@ def get_files():
             else:
                 i_path = os.path.join(files_path, i)
                 db = guess_database(i_path)
-                global_record[i.split(".")[0]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
+                if len(i.split(".")) > 2:
+                    global_record[i.split(".")[0] + "." + i.split(".")[1]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
+                else:
+                    global_record[i.split(".")[0]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
     for t in files:
         if not os.path.exists(os.path.join(files_path, t)):
             if len(t.split(".")) > 2:

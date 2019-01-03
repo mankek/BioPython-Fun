@@ -31,8 +31,14 @@ def db_query():
 @app.route('/upload', methods=['POST'])
 def file_upload():
     file_path = request.form["file"]
-    print(file_path)
     db = request.form["database"]
     upload(file_path, db)
     return redirect(url_for("index"))
 
+
+@app.route('/chart', methods=['POST'])
+def show_chart():
+    if request.form["action"] == "chart":
+        return render_template("BioP_chart.html")
+    elif request.form["action"] == "previous":
+        return redirect(url_for("index"))
