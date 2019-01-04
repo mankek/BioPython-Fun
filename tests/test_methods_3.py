@@ -12,11 +12,6 @@ class TestDataProcess(unittest.TestCase):
             empty_file.write("\n")
         empty_file.close()
 
-        # Make a file with an inappropriate extension
-        with open(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files\Wrong_file.txt", 'w') as wrong_file:
-            wrong_file.write("\n")
-        wrong_file.close()
-
     def test_database_names(self):
         # Test that the displayed database options pass
         self.assertEqual(get_db("nuccore"), "Nucleotide")
@@ -40,11 +35,11 @@ class TestDataProcess(unittest.TestCase):
     def tearDown(self):
         # Remove all input files so that all tests can be run again
         os.remove(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files\Empty_file.gb")
-        os.remove(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files\Wrong_file.txt")
-        if os.path.exists(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\EU490707.fasta"):
-            os.remove(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\EU490707.fasta")
-        if os.path.exists(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\PKU88159.1.fasta"):
-            os.remove(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\PKU88159.1.fasta")
+        for i in [r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\EU490707.fasta",
+                  r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\PKU88159.1.fasta",
+                  r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Wrong_file2.txt"]:
+            if os.path.exists(i):
+                os.remove(i)
         for _,_, s in os.walk(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files"):
             if s:
                 for t in s:
