@@ -60,15 +60,20 @@ $(document).ready(function(){
     })
 
     $("input.radio_c").click(function(){
-        if ($(this).prop("value") == "Nucleotide"){
-            $("#charts").prop("disabled", false)
-            $("#charts").attr("list", "nucleotide_chart_list")
-        } else if ($(this).prop("value") == "Protein") {
-            $("#charts").prop("disabled", false)
-            $("#charts").attr("list", "protein_chart_list")
-        } else {
-            alert("No database for file")
+        if ($(this).prop("checked")){
+            $("#filename").prop("value", $(this).attr("id"))
+            $("#filetype").prop("value", file_dict[$(this).attr("id")]["rettype"])
+            if ($(this).prop("value") == "Nucleotide"){
+                $("#charts").prop("disabled", false)
+                $("#charts").attr("list", "nucleotide_chart_list")
+            } else if ($(this).prop("value") == "Protein") {
+                $("#charts").prop("disabled", false)
+                $("#charts").attr("list", "protein_chart_list")
+            } else {
+                alert("No database for file")
+            }
         }
+
     })
 
     if (preview != "None") {

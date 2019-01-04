@@ -102,4 +102,32 @@ def guess_database(file):
             return "nuccore"
 
 
+def comp(file_name, file_type, file_db):
+    file_path = os.path.join(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files", file_name + "." + file_type)
+    if file_db == "Nucleotide":
+        options = {"A": 0, "T": 0, "G": 0, "C": 0, "N": 0, "K": 0, "S": 0, "Y": 0, "M": 0, "W": 0, "R": 0, "B": 0,
+                   "D": 0, "H": 0, "V": 0, "U": 0}
+    elif file_db == "Protein":
+        options = {"G": 0, "A": 0, "L": 0, "M": 0, "F": 0, "W": 0, "K": 0, "Q": 0, "E": 0, "S": 0, "P": 0, "V": 0,
+                   "I": 0, "C": 0, "Y": 0, "H": 0, "R": 0, "N": 0, "D": 0, "T": 0, "X": 0}
+    if file_type == "gp":
+        file_type = "gb"
+    for rec in SeqIO.parse(file_path, file_type):
+        for s in range(0, len(rec.seq)):
+            options[rec.seq[s]] += 1
+
+    x = []
+    for i in options.keys():
+        if options[i] != 0:
+            x.append(i)
+
+    y = []
+    for t in x:
+        y.append(options[t])
+
+    return x, y
+
+
+
+
 

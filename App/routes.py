@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from flask import Flask, render_template, url_for, request, jsonify, redirect
-from App.methods import retrieve, preview, upload, get_files, global_record
+from App.methods import retrieve, preview, upload, get_files, global_record, comp
 
 app = Flask(__name__)
 
@@ -40,6 +40,14 @@ def file_upload():
 def show_chart():
     if request.form["action"] == "chart":
         title = request.form["charts"]
-        return render_template("BioP_chart.html", title=title)
+        file = request.form["filename"]
+        file_type = request.form["filetype"]
+        file_db = request.form["file"]
+        if (title == "Nucleotide Composition") or (title == "Amino Acid Composition"):
+            x_data, y_data = comp(file, file_type, file_db)
+        else:
+            x_data = [0]
+            y_data = [0]
+        return render_template("BioP_chart.html", title=title, file=file, x=x_data, y=y_data)
     elif request.form["action"] == "previous":
         return redirect(url_for("index"))

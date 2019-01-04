@@ -5,6 +5,7 @@
     <title>Let's Have Some Biopython Fun!</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='BioP_index.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>var file_dict = {{ files|safe }}</script>
     <script src="/static/BioP_index.js"></script>
 </head>
 <body>
@@ -26,8 +27,8 @@
         <option value="GC%"></option>
     </datalist>
 
-    <datalist id="peptide_chart_list">
-        <option value="Peptide Composition"></option>
+    <datalist id="protein_chart_list">
+        <option value="Amino Acid Composition"></option>
     </datalist>
 
     <br>
@@ -94,13 +95,15 @@
             <div id="chart_left">
                 <h3>Files Available</h3>
                 {% for key in files.keys() %}
-                <input type="radio" id="{{ key }}" value="{{ files[key]['db'] }}" class="radio_c"> {{ key }}<br>
+                <input type="radio" id="{{ key }}" value="{{ files[key]['db'] }}" class="radio_c" name="file"> {{ key }}<br>
                 {% endfor %}
+                <input type="hidden" name="filename" id="filename">
+                <input type="hidden" name="filetype" id="filetype">
             </div>
             <div>
                 <br>
                 <h3>Charts Available</h3>
-                <input id="charts" name="charts" disabled>
+                <input id="charts" name="charts" disabled autocomplete="off">
             </div><br><br>
             <button type="submit" name="action" value="chart">Submit</button>
         </form>
