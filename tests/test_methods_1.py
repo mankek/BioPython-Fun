@@ -23,7 +23,7 @@ class TestNCBIOps(unittest.TestCase):
         # Test that retrieved files exist in correct location
         for i, h in zip(["EU490707", "6273289", "6273290", "6273291", "PKU88159.1", "AAA29796.1", "PKU88155.1"],
             ["fasta", "gb", "gb", "gb", "fasta", "gp", "gp"]):
-            self.assertTrue(os.path.exists(os.path.join(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files", i + "." + h)))
+            self.assertTrue(os.path.exists(os.path.join(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__)))), "App", "Files", i + "." + h)))
         # Test that retrieved files were added to global_record
         self.assertEqual(len(global_record), 7)
         for t in ["EU490707", "6273289", "6273290", "6273291", "PKU88159.1", "AAA29796.1", "PKU88155.1"]:

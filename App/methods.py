@@ -5,6 +5,7 @@ import shutil
 Entrez.email = "emailtestforkm@gmail.com"
 
 global_record = {}
+legal_rettypes = ["gp", "gb", "fasta"]
 
 
 def get_db(db):
@@ -47,18 +48,21 @@ def upload(file_path, db):
     path = os.path.abspath(__file__)
     files_path = "\\".join(path.split("\\")[0:6])
     if os.path.exists(file_path):
-        if db == "NA":
-            db = guess_database(file_path)
-        shutil.copyfile(file_path, os.path.join(files_path, "Files", file_path.split("\\")[-1]))
-        global global_record
-        if len(file_path.split("\\")[-1].split(".")) > 2:
-            global_record[file_path.split("\\")[-1].split(".")[0] + "." + file_path.split("\\")[-1].split(".")[1]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
+        if file_path.split("\\")[-1].split(".")[-1] in legal_rettypes:
+            if db == "NA":
+                db = guess_database(file_path)
+            shutil.copyfile(file_path, os.path.join(files_path, "Files", file_path.split("\\")[-1]))
+            global global_record
+            if len(file_path.split("\\")[-1].split(".")) > 2:
+                global_record[file_path.split("\\")[-1].split(".")[0] + "." + file_path.split("\\")[-1].split(".")[1]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
+            else:
+                global_record[file_path.split("\\")[-1].split(".")[0]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
+            return "done"
         else:
-            global_record[file_path.split("\\")[-1].split(".")[0]] = {"db": get_db(db), "rettype": file_path.split("\\")[-1].split(".")[-1]}
-        return "done"
+            return "File doesn't have an accepted extension."
     else:
         print(file_path)
-        return print("File doesn't exist, uwu.")
+        return print("File doesn't exist.")
 
 
 def get_files():
@@ -73,11 +77,14 @@ def get_files():
         for i in file_name:
             if i in files:
                 continue
+            elif i.split(".")[-1] not in legal_rettypes:
+                continue
             else:
                 i_path = os.path.join(files_path, i)
+                i_rettype = i.split(".")[-1]
                 db = guess_database(i_path)
                 if len(i.split(".")) > 2:
-                    global_record[i.split(".")[0] + "." + i.split(".")[1]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
+                    global_record[i.split(".")[0] + "." + i.split(".")[1]] = {"db": get_db(db), "rettype": i_rettype}
                 else:
                     global_record[i.split(".")[0]] = {"db": get_db(db), "rettype": i.split(".")[-1]}
     for t in files:
@@ -103,7 +110,7 @@ def guess_database(file):
 
 
 def comp(file_name, file_type, file_db):
-    file_path = os.path.join(r"C:\Users\krmanke\PycharmProjects\FASTA_analysis\App\Files", file_name + "." + file_type)
+    file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Files", file_name + "." + file_type)
     if file_db == "Nucleotide":
         options = {"A": 0, "T": 0, "G": 0, "C": 0, "N": 0, "K": 0, "S": 0, "Y": 0, "M": 0, "W": 0, "R": 0, "B": 0,
                    "D": 0, "H": 0, "V": 0, "U": 0}
@@ -124,6 +131,26 @@ def comp(file_name, file_type, file_db):
     y = []
     for t in x:
         y.append(options[t])
+
+    return x, y
+
+
+def skew(file_name, file_type):
+    file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Files", file_name + "." + file_type)
+    skew = [0]
+    positions = []
+    for rec in SeqIO.parse(file_path, file_type):
+        for i in range(0, len(rec.seq)):
+            positions.append(i)
+            if (rec.seq[i] != "C") and (rec.seq[i] != "G"):
+                skew.append(skew[len(skew) - 1])
+            elif rec.seq[i] == "G":
+                skew.append(skew[len(skew) - 1] + 1)
+            elif rec.seq[i] == "C":
+                skew.append(skew[len(skew) - 1] - 1)
+
+    x = positions
+    y = skew
 
     return x, y
 
