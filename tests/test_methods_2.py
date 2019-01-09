@@ -13,7 +13,7 @@ class TestFileOps(unittest.TestCase):
         wrong_file.close()
 
         # Make a file with an inappropriate extension in the App directory
-        with open(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), "App", "Files", "Wrong_file2.txt"), 'w') as wrong_file2:
+        with open(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), "App", "Wrong_file2.txt"), 'w') as wrong_file2:
             wrong_file2.write("\n")
         wrong_file2.close()
 
