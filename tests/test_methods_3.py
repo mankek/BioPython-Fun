@@ -37,7 +37,7 @@ class TestCharts(unittest.TestCase):
         self.assertEqual(type(prot2_y_output), list)
         # Test that the output lists are of equal length
         self.assertEqual(len(prot2_x_output), len(prot2_x_output))
-        
+
     def test_skew(self):
         # Get output of nucleotide genbank file
         gen_x_output, gen_y_output = skew("6273289", "gb")

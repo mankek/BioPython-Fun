@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from Bio import Entrez, SeqIO
+from Bio.SeqUtils import GC, GC_skew
 import os
 import shutil
 Entrez.email = "emailtestforkm@gmail.com"
@@ -140,19 +141,22 @@ def skew(file_name, file_type):
     skew_val = [0]
     positions = [0]
     for rec in SeqIO.parse(file_path, file_type):
+        skew_data = GC_skew(rec.seq, 1)
         for i in range(0, len(rec.seq)):
             positions.append(i)
-            if (rec.seq[i] != "C") and (rec.seq[i] != "G"):
-                skew_val.append(skew_val[len(skew_val) - 1])
-            elif rec.seq[i] == "G":
-                skew_val.append(skew_val[len(skew_val) - 1] + 1)
-            elif rec.seq[i] == "C":
-                skew_val.append(skew_val[len(skew_val) - 1] - 1)
+            skew_val.append(skew_val[len(skew_val) - 1] + int(skew_data[i]))
 
     x = positions
     y = skew_val
 
     return x, y
+
+
+# def gc(file_name, file_type):
+#     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Files", file_name + "." + file_type)
+#     return "done"
+
+
 
 
 
