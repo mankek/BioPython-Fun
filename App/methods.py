@@ -137,17 +137,17 @@ def comp(file_name, file_type, file_db):
 
 def skew(file_name, file_type):
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Files", file_name + "." + file_type)
-    skew = [0]
+    skew_val = [0]
     positions = []
     for rec in SeqIO.parse(file_path, file_type):
         for i in range(0, len(rec.seq)):
             positions.append(i)
             if (rec.seq[i] != "C") and (rec.seq[i] != "G"):
-                skew.append(skew[len(skew) - 1])
+                skew_val.append(skew_val[len(skew_val) - 1])
             elif rec.seq[i] == "G":
-                skew.append(skew[len(skew) - 1] + 1)
+                skew_val.append(skew_val[len(skew_val) - 1] + 1)
             elif rec.seq[i] == "C":
-                skew.append(skew[len(skew) - 1] - 1)
+                skew_val.append(skew_val[len(skew_val) - 1] - 1)
 
     x = positions
     y = skew

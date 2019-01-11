@@ -20,6 +20,7 @@
             var file = {{ file|safe|tojson }}
             var x_data = {{ x|safe }}
             var y_data = {{ y|safe }}
+            var chart_type = {{ chart|tojson }}
         </script>
         <script src="/static/BioP_chart.js"></script>
     </div>
