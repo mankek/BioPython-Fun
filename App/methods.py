@@ -138,7 +138,7 @@ def comp(file_name, file_type, file_db):
 def skew(file_name, file_type):
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "Files", file_name + "." + file_type)
     skew_val = [0]
-    positions = []
+    positions = [0]
     for rec in SeqIO.parse(file_path, file_type):
         for i in range(0, len(rec.seq)):
             positions.append(i)
