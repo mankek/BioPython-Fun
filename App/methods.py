@@ -150,7 +150,7 @@ def skew(file_name, file_type):
                 skew_val.append(skew_val[len(skew_val) - 1] - 1)
 
     x = positions
-    y = skew
+    y = skew_val
 
     return x, y
 
