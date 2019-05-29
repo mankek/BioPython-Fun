@@ -31,6 +31,10 @@
         <option value="Amino Acid Composition"></option>
     </datalist>
 
+    <div id="header">
+        <h1>Fasta and Genbank File Visualizations</h1>
+    </div>
+
     <br>
     <div id="retrieval">
         <button id="query_btn" type="button">Database Query</button>
@@ -39,34 +43,60 @@
         <button id="help_btn" type="button">Help</button>
     </div>
     <br><br>
+    <div id="files">
+        <h3>Files Available</h3>
+        <table>
+            <tr>
+                <th>Filename</th>
+                <th>Database</th>
+                <th>Retrieval Type</th>
+            </tr>
+            {% if files.keys() %}
+                {% for key in files.keys() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ files[key]["db"] }}</td>
+                    <td>{{ files[key]["rettype"] }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        <br>
+    </div>
     <div id="query">
         <form action="/query" id="query_form" method="post">
             <div id="left">
                 <h3 style="text-decoration: underline">Database Options</h3>
-                <input type="radio" name="database" value="nuccore" id="nuccore" class="radio_q"> Nucleotide<br>
+                <input type="radio" name="database" value="nuccore" id="nuccore" class="radio_q" required> Nucleotide<br><br>
                 <input type="radio" name="database" value="protein" id="protein" class="radio_q"> Protein<br>
                 <!--<input type="radio" name="database" value="Nucleotide"> Nucleotide<br>-->
             </div>
-            <br>
-            <label>Accession Number: </label>  <input type="text" name="id"><br><br>
-            <label>Retrieval Type: </label>  <input name="type" id="type" autocomplete="off" disabled><br><br>
-            <label>Retrieval Mode is automatically set to "text".</label><br><br>
-            <button name="action" type="submit" value="query" class="forms">Submit</button>
-            <button name="action" type="submit" value="preview" class="forms">Preview</button>
+            <div id="right">
+                <br>
+                <label>Accession Number: </label>  <input type="text" name="id"><br><br>
+                <label>Retrieval Type: </label>  <input name="type" id="type" autocomplete="off" disabled><br><br>
+                <label>Retrieval Mode is automatically set to "text".</label><br><br>
+                <button name="action" type="submit" value="query" class="forms">Submit</button>
+                <button name="action" type="submit" value="preview" class="forms">Preview</button>
+            </div>
         </form>
     </div>
     <div id="upload">
         <form action="/upload" id="upload_form" method="post">
             <div id="left2">
                 <h3 style="text-decoration: underline">Database Options</h3>
-                <input type="radio" name="database" value="nuccore" id="nuccore2"> Nucleotide<br>
-                <input type="radio" name="database" value="protein"> Protein<br>
-                <input type="radio" name="database" value="NA"> Not Available<br>
+                <input type="radio" name="database" value="nuccore" id="nuccore2" class="radio_q" required> Nucleotide<br><br>
+                <input type="radio" name="database" value="protein" class="radio_q"> Protein<br><br>
+                <input type="radio" name="database" value="NA" class="radio_q"> Not Available<br>
                 <!--<input type="radio" name="Nucleotide" value="Nucleotide"> Nucleotide<br>-->
             </div>
-            <br><br>
-            <label>File: </label><input type="file" name="file"><br><br>
-            <button name="action" type="submit" value="upload" class="forms">Submit</button>
+            <div id="right2">
+                <br>
+                <label>Acceptable extensions: .fasta, .gp, .gb</label><br><br>
+                <label>Files with an incompatible extension will not be available for selection</label><br><br>
+                <label>File:    </label><input type="file" name="file" required><br><br>
+                <button name="action" type="submit" value="upload" class="forms">Submit</button>
+            </div>
         </form>
     </div>
     <div id="help">
@@ -109,25 +139,5 @@
         </form>
     </div>
     <br><br><br>
-    <div id="files">
-        <h3>Files Available</h3>
-        <table>
-            <tr>
-                <th>Filename</th>
-                <th>Database</th>
-                <th>Retrieval Type</th>
-            </tr>
-            {% if files.keys() %}
-                {% for key in files.keys() %}
-                <tr>
-                    <td>{{ key }}</td>
-                    <td>{{ files[key]["db"] }}</td>
-                    <td>{{ files[key]["rettype"] }}</td>
-                </tr>
-                {% endfor %}
-            {% endif %}
-        </table>
-        <br>
-    </div>
 </body>
 </html>

@@ -1,5 +1,11 @@
 body {
-    background-color: #006699;
+    background-color: #e6f7ff;
+}
+
+#header {
+    width: 60%;
+    margin-left: 30%;
+    text-align: center;
 }
 
 #query_btn, #upload_btn, #help_btn, #chart_btn {
@@ -12,31 +18,70 @@ body {
 #retrieval {
     width: 60%;
     height: 40px;
-    margin: auto;
-    border: 5px solid #ffe6b3;
+    margin-left: 30%;
+    border: 5px solid #006699;
 }
+
+#files {
+    float: left;
+    width: 25%;
+    height: 300px;
+    background-color: white;
+    font-size: 20px;
+    text-align: center;
+    overflow: auto;
+    border: 5px solid #006699;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+th {
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 22px;
+    background-color: #5D749D;
+}
+tr {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid black;
+    text-align:center;
+}
+td {
+    background-color: #9fadc6;
+    border: 1px solid black;
+    font-size: 20px;
+}
+
 
 #query {
     display: none;
-    padding-right: 15px;
     width: 60%;
-    height: 200px;
-    background-color: #ffe6b3;
-    margin: auto;
+    height: 250px;
+    background-color: white;
+    margin-left: 30%;
     font-size: 20px;
-    border: 5px solid grey;
+    border: 5px solid #006699;
     overflow: auto;
+    font-size: 24px;
 }
 
 #left {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     position: relative;
     float: left;
-    height: 200px;
+    height: 250px;
     overflow: auto;
     text-align: center;
     border-right: 5px solid grey;
+}
+#right {
+    padding-left: 30px;
+    position: relative;
+    float: left;
 }
 
 label {
@@ -44,7 +89,8 @@ label {
 }
 
 .forms {
-    float: right;
+    float: left;
+    font-size: 20px;
 }
 
 .radio_q {
@@ -52,31 +98,44 @@ label {
 }
 
 #upload {
-    display: none;
+    display: block;
     width: 60%;
-    height: 200px;
-    background-color: #ffe6b3;
-    margin: auto;
-    font-size: 20px;
+    height: 250px;
+    background-color: white;
+    margin-left: 30%;
+    font-size: 24px;
     text-align: center;
     overflow: auto;
-    border: 5px solid grey;
-    padding-right: 15px;
+    border: 5px solid #006699;
 }
 
 #left2 {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     position: relative;
     float: left;
-    height: 200px;
+    height: 250px;
     overflow: auto;
     text-align: center;
     border-right: 5px solid grey;
 }
 
+#right2 {
+    padding-left: 30px;
+    position: relative;
+    float: left;
+}
+
+label{
+    float: left;
+    padding-right: 5px;
+    font-family: Arial;
+}
+
 input[type=file] {
     background-color: white;
+    float: left;
+    font-family: Arial;
 }
 
 #chart {
@@ -114,36 +173,4 @@ input[type=file] {
     padding-right: 15px;
 }
 
-#files {
-    width: 60%;
-    height: 300px;
-    background-color: #ffe6b3;
-    margin: auto;
-    font-size: 20px;
-    text-align: center;
-    overflow: auto;
-    border: 5px solid grey;
-}
-
-table {
-    border-collapse: collapse;
-    margin: auto;
-}
-th {
-    border: 1px solid black;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 22px;
-    background-color: #5D749D;
-}
-tr {
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid black;
-    text-align:center;
-}
-td {
-    background-color: #9fadc6;
-    border: 1px solid black;
-    font-size: 20px;
-}
 
