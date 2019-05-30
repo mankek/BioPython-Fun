@@ -1,10 +1,7 @@
 $(document).ready(function(){
     $("#query_btn").click(function(){
-        if ($("#query").css("display") == "block") {
-            $("#query").hide();
-        } else {
+        if ($("#query").css("display") != "block") {
             $("#query").show();
-            $("#files").show();
             $("#chart").hide();
             $("#upload").hide();
             $("#help").hide();
@@ -12,11 +9,8 @@ $(document).ready(function(){
     });
 
     $("#upload_btn").click(function(){
-        if ($("#upload").css("display") == "block") {
-            $("#upload").hide();
-        } else {
+        if ($("#upload").css("display") != "block") {
             $("#upload").show();
-            $("#files").show();
             $("#chart").hide();
             $("#query").hide();
             $("#help").hide();
@@ -24,12 +18,8 @@ $(document).ready(function(){
     });
 
     $("#help_btn").click(function(){
-        if ($("#help").css("display") == "block") {
-            $("#help").hide();
-            $("#files").show();
-        } else {
+        if ($("#help").css("display") != "block") {
             $("#help").show();
-            $("#files").hide();
             $("#chart").hide();
             $("#upload").hide();
             $("#query").hide();
@@ -37,17 +27,25 @@ $(document).ready(function(){
     })
 
     $("#chart_btn").click(function(){
-        if ($("#chart").css("display") == "block") {
-            $("#chart").hide();
-            $("#files").show();
-        } else {
+        if ($("#chart").css("display") != "block") {
             $("#chart").show();
             $("#help").hide();
             $("#upload").hide();
             $("#query").hide();
-            $("#files").hide();
         }
     })
+
+    function openForm(evt, formname){
+        formcontent = $(".formcontent");
+        for (i = 0; i < formcontent.length; i++) {
+            formcontent[i].css("display", "none")
+        }
+        formlinks = $(".tab")
+        for (i = 0; i < formlinks.length; i++) {
+            formlinks[i].attr("className", "")
+        }
+
+    }
 
     $("input.radio_q").click(function(){
         if ($("#nuccore").prop("checked")) {

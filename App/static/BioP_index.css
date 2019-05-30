@@ -2,10 +2,25 @@ body {
     background-color: #e6f7ff;
 }
 
+
 #header {
-    width: 60%;
-    margin-left: 30%;
     text-align: center;
+}
+
+label{
+    float: left;
+    padding-right: 5px;
+    font-family: Arial;
+}
+
+p{
+   font-family: Arial;
+}
+
+.content {
+    position: absolute;
+    width: 1140px;
+    margin-left: 570px;
 }
 
 #query_btn, #upload_btn, #help_btn, #chart_btn {
@@ -16,16 +31,17 @@ body {
 }
 
 #retrieval {
-    width: 60%;
     height: 40px;
-    margin-left: 30%;
+    margin-top: 100px;
     border: 5px solid #006699;
 }
 
 #files {
     float: left;
-    width: 25%;
-    height: 300px;
+    position: absolute;
+    width: 450px;
+    height: 600px;
+    margin-top: 175px;
     background-color: white;
     font-size: 20px;
     text-align: center;
@@ -38,30 +54,29 @@ table {
     margin: auto;
 }
 th {
-    border: 1px solid black;
-    padding-left: 5px;
-    padding-right: 5px;
+    border: 1px solid #006699;
+    padding-left: 8px;
+    padding-right: 8px;
     font-size: 22px;
-    background-color: #5D749D;
+    background-color: #e6f7ff;
 }
 tr {
     font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid black;
+    border: 2px solid #006699;
     text-align:center;
 }
 td {
-    background-color: #9fadc6;
-    border: 1px solid black;
+    background-color: white;
+    border: 1px solid #006699;
     font-size: 20px;
 }
 
 
 #query {
-    display: none;
-    width: 60%;
-    height: 250px;
+    display: block;
+    height: 300px;
+    margin-top: 175px;
     background-color: white;
-    margin-left: 30%;
     font-size: 20px;
     border: 5px solid #006699;
     overflow: auto;
@@ -73,7 +88,7 @@ td {
     padding-right: 30px;
     position: relative;
     float: left;
-    height: 250px;
+    height: 300px;
     overflow: auto;
     text-align: center;
     border-right: 5px solid grey;
@@ -93,18 +108,16 @@ label {
     font-size: 20px;
 }
 
-.radio_q {
+input[type=radio] {
     float: right;
 }
 
 #upload {
-    display: block;
-    width: 60%;
-    height: 250px;
+    display: none;
+    height: 300px;
+    margin-top: 175px;
     background-color: white;
-    margin-left: 30%;
     font-size: 24px;
-    text-align: center;
     overflow: auto;
     border: 5px solid #006699;
 }
@@ -114,7 +127,7 @@ label {
     padding-right: 30px;
     position: relative;
     float: left;
-    height: 250px;
+    height: 300px;
     overflow: auto;
     text-align: center;
     border-right: 5px solid grey;
@@ -126,12 +139,6 @@ label {
     float: left;
 }
 
-label{
-    float: left;
-    padding-right: 5px;
-    font-family: Arial;
-}
-
 input[type=file] {
     background-color: white;
     float: left;
@@ -140,37 +147,42 @@ input[type=file] {
 
 #chart {
     display: none;
-    width: 60%;
-    height: 200px;
-    background-color: #ffe6b3;
-    margin: auto;
-    font-size: 20px;
-    text-align: center;
-    overflow: auto;
-    border: 5px solid grey;
-    padding-right: 15px;
-    padding-left: 15px;
+    height: 300px;
+    margin-top: 175px;
+    background-color: white;
+    font-size: 24px;
+    border: 5px solid #006699;
 }
 
 #chart_left {
-    height: 200px;
-    padding-right: 15px;
+    height: 300px;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
     float: left;
     border-right: 5px solid grey;
     text-align: center;
 }
+#chart_right {
+    height: 300px;
+    padding-left: 30px;
+    position: relative;
+    float: left;
+}
 
 #help {
     display: none;
-    width: 60%;
-    height: 450px;
-    background-color: #ffe6b3;
-    margin: auto;
-    font-size: 20px;
+    height: 600px;
+    margin-top: 175px;
+    background-color: white;
+    font-size: 22px;
     text-align: center;
     overflow: auto;
-    border: 5px solid grey;
-    padding-right: 15px;
+    border: 5px solid #006699;
+}
+#instructions {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 

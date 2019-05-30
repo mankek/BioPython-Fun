@@ -31,12 +31,12 @@
         <option value="Amino Acid Composition"></option>
     </datalist>
 
-    <div id="header">
+    <div id="header" class="content">
         <h1>Fasta and Genbank File Visualizations</h1>
     </div>
 
     <br>
-    <div id="retrieval">
+    <div id="retrieval" class="content">
         <button id="query_btn" type="button">Database Query</button>
         <button id="upload_btn" type="button">Upload File</button>
         <button id="chart_btn" type="button">Chart</button>
@@ -63,7 +63,7 @@
         </table>
         <br>
     </div>
-    <div id="query">
+    <div id="query" class="content">
         <form action="/query" id="query_form" method="post">
             <div id="left">
                 <h3 style="text-decoration: underline">Database Options</h3>
@@ -72,7 +72,7 @@
                 <!--<input type="radio" name="database" value="Nucleotide"> Nucleotide<br>-->
             </div>
             <div id="right">
-                <br>
+                <h3 style="text-decoration: underline">Database Query Form</h3>
                 <label>Accession Number: </label>  <input type="text" name="id"><br><br>
                 <label>Retrieval Type: </label>  <input name="type" id="type" autocomplete="off" disabled><br><br>
                 <label>Retrieval Mode is automatically set to "text".</label><br><br>
@@ -81,7 +81,7 @@
             </div>
         </form>
     </div>
-    <div id="upload">
+    <div id="upload" class="content">
         <form action="/upload" id="upload_form" method="post">
             <div id="left2">
                 <h3 style="text-decoration: underline">Database Options</h3>
@@ -91,53 +91,57 @@
                 <!--<input type="radio" name="Nucleotide" value="Nucleotide"> Nucleotide<br>-->
             </div>
             <div id="right2">
-                <br>
+                <h3 style="text-decoration: underline">Upload File Form</h3>
                 <label>Acceptable extensions: .fasta, .gp, .gb</label><br><br>
                 <label>Files with an incompatible extension will not be available for selection</label><br><br>
-                <label>File:    </label><input type="file" name="file" required><br><br>
+                <label>File: </label><input type="file" name="file" required><br><br>
                 <button name="action" type="submit" value="upload" class="forms">Submit</button>
             </div>
         </form>
     </div>
-    <div id="help">
-        <h3>Instructions</h3>
-        <p>Clicking on a button will cause a certain section to appear; clicking on that same button again will cause
-        the section to disappear.</p>
-        <b>Database Query</b><br>
-        <p>This form takes in the accession number of the desired record, the database from which the record should
-            be pulled, and the format the record should have (which is not available until a specific database is chosen)
-            and fetches the file from the NCBI website.</p>
-        <p>If the submit button is pressed, the file is fetched and added to the collection of saved files available for
-        analysis. If the preview button is pressed, the file is fetched and processed for information (id, description,
-            # of features, length, and origin); this information is displayed in a separate window and the file is not
-        saved.</p>
-        <b>Upload File</b>
-        <p>This form allows the user to browse and upload files to the collection of saved files available for analysis.
-        Only files that are local with respect to the directory containing the application can be uploaded. If the chosen
-        database is Not Available, the application will attempt to identify a database that fits the record.</p>
-        <b>File Collection</b>
-        <p>Once a file is uploaded or a query is submitted, the resulting record file is added to a collection. The files
-        available in the collection can be viewed in the Files Available table. Once a file is added, it cannot be
-        removed unless it is directly removed or deleted from the Files directory of the application.</p>
-    </div>
-    <div id="chart">
+    <div id="chart" class="content">
         <form action="/chart" id="chart_form" method="post">
             <div id="chart_left">
-                <h3>Files Available</h3>
+                <h3 style="text-decoration: underline">Files Available</h3>
                 {% for key in files.keys() %}
                 <input type="radio" id="{{ key }}" value="{{ files[key]['db'] }}" class="radio_c" name="file"> {{ key }}<br>
                 {% endfor %}
                 <input type="hidden" name="filename" id="filename">
                 <input type="hidden" name="filetype" id="filetype">
             </div>
-            <div>
-                <br>
-                <h3>Charts Available</h3>
-                <input id="charts" name="charts" disabled autocomplete="off">
-            </div><br><br>
-            <button type="submit" name="action" value="chart">Submit</button>
+            <div id="chart_right">
+                <h3 style="text-decoration: underline">Charts Available</h3>
+                <label>Below is a drop-down menu of all the charts that can be generated</label><br>
+                <label>from a selected file.</label><br><br>
+                <label>Charts: </label><input id="charts" name="charts" disabled autocomplete="off"><br><br>
+                <button type="submit" name="action" value="chart">Submit</button>
+            </div>
         </form>
     </div>
-    <br><br><br>
+    <div id="help" class="content">
+        <h3>Instructions</h3>
+        <div id="instructions">
+            <p>Clicking on a button will cause a certain section to appear; clicking on that same button again will cause
+            the section to disappear.</p>
+            <b>Database Query</b><br>
+            <p>This form takes in the accession number of the desired record, the database from which the record should
+                be pulled, and the format the record should have (which is not available until a specific database is chosen)
+                and fetches the file from the NCBI website.</p>
+            <p>If the submit button is pressed, the file is fetched and added to the collection of saved files available for
+            analysis. If the preview button is pressed, the file is fetched and processed for information (id, description,
+                # of features, length, and origin); this information is displayed in a separate window and the file is not
+            saved.</p>
+            <b>Upload File</b>
+            <p>This form allows the user to browse and upload files to the collection of saved files available for analysis.
+            Only files that are local with respect to the directory containing the application can be uploaded. If the chosen
+            database is Not Available, the application will attempt to identify a database that fits the record.</p>
+            <b>File Collection</b>
+            <p>Once a file is uploaded or a query is submitted, the resulting record file is added to a collection. The files
+            available in the collection can be viewed in the Files Available table. Once a file is added, it cannot be
+            removed unless it is directly removed or deleted from the Files directory of the application.</p>
+        </div>
+    </div>
+
+
 </body>
 </html>
