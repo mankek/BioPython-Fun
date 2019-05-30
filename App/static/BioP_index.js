@@ -35,18 +35,6 @@ $(document).ready(function(){
         }
     })
 
-    function openForm(evt, formname){
-        formcontent = $(".formcontent");
-        for (i = 0; i < formcontent.length; i++) {
-            formcontent[i].css("display", "none")
-        }
-        formlinks = $(".tab")
-        for (i = 0; i < formlinks.length; i++) {
-            formlinks[i].attr("className", "")
-        }
-
-    }
-
     $("input.radio_q").click(function(){
         if ($("#nuccore").prop("checked")) {
             $("#type").prop("disabled", false)
@@ -75,9 +63,17 @@ $(document).ready(function(){
     })
 
     if (preview != "None") {
-        var myWindow = window.open("", "MsgWindow");
-        myWindow.document.writeln("<b>The result is as follows:</b>")
-        myWindow.document.write(String(preview))
+        var content = preview[0][name]
+        var id = content["id"]
+        var description = content["description"]
+        var seq_length = content["Sequence length"]
+        var features = content["features"]
+        var source = content["from"]
+        alert("Id: " + String(id) + "\nDescription: " + String(description) +
+        "\nSequence Length: " + String(seq_length) + "\nFeatures: " + String(features) + "\nSource: " + String(source))
+//        var myWindow = window.open("", "MsgWindow");
+//        myWindow.document.writeln("<b>The result is as follows:</b>")
+//        myWindow.document.write(String(preview))
         location.replace("http://127.0.0.1:5000/");
     }
 })

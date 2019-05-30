@@ -9,7 +9,10 @@
     <script src="/static/BioP_index.js"></script>
 </head>
 <body>
-    <script> var preview = {{ prev|safe|tojson }}</script>
+    <script>
+        var preview = {{ prev|tojson|safe }}
+        var name = {{name|safe|tojson }}
+    </script>
 
     <datalist id="Nucleotide_list">
         <option value="fasta">FASTA</option>
@@ -121,15 +124,14 @@
     <div id="help" class="content">
         <h3>Instructions</h3>
         <div id="instructions">
-            <p>Clicking on a button will cause a certain section to appear; clicking on that same button again will cause
-            the section to disappear.</p>
+            <p>Clicking on a button will cause a certain section to appear.</p>
             <b>Database Query</b><br>
             <p>This form takes in the accession number of the desired record, the database from which the record should
                 be pulled, and the format the record should have (which is not available until a specific database is chosen)
                 and fetches the file from the NCBI website.</p>
             <p>If the submit button is pressed, the file is fetched and added to the collection of saved files available for
             analysis. If the preview button is pressed, the file is fetched and processed for information (id, description,
-                # of features, length, and origin); this information is displayed in a separate window and the file is not
+                # of features, length, and origin); this information is displayed in a window alert and the file is not
             saved.</p>
             <b>Upload File</b>
             <p>This form allows the user to browse and upload files to the collection of saved files available for analysis.
@@ -141,7 +143,5 @@
             removed unless it is directly removed or deleted from the Files directory of the application.</p>
         </div>
     </div>
-
-
 </body>
 </html>

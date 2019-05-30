@@ -25,7 +25,7 @@ def db_query():
         acc_num = request.form["id"]
         rettype = request.form["type"]
         result = methods.preview(db, acc_num, rettype)
-        return render_template("index.html", files=methods.global_record, prev=result)
+        return render_template("index.html", files=methods.global_record, prev=result, name=acc_num)
 
 
 @app.route('/upload', methods=['POST'])

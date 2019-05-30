@@ -1,15 +1,19 @@
 body {
-    background-color: #006699;
+    background-color: #e6f7ff;
 }
 
 #return_form {
     float: left;
 }
+button {
+    height: 40px;
+    font-size: 24px;
+}
 
 #chart_container {
     margin: auto;
+    margin-top: 50px;
     height: 550px;
     width: 880px;
-    background-color: #ffe6b3;
-    border: 5px solid grey;
+    border: 5px solid #006699;
 }

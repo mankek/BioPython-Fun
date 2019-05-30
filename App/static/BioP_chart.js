@@ -11,7 +11,7 @@ var svg = d3.select("#chart_container")
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    .style("background-color", "#ffe6b3")
+    .style("background-color", "white")
 
 svg.append("rect")
     .attr("width", width - (margin.left + margin.right))

@@ -18,6 +18,9 @@ class TestNCBIOps(unittest.TestCase):
         self.assertEqual(retrieve("nuccore", "6273289,6273290,6273291", "gb"), "done")
         # Test of retrieval of single protein fasta file
         self.assertEqual(retrieve("protein", "PKU88159.1", "fasta"), "done")
+        # Test of retrieval of same file multiple times
+        with self.assertRaises(urllib.error.HTTPError):
+            retrieve("protein", "PKU88159.1", "fasta")
         # Test of retrieval of multiple protein genprot files
         self.assertEqual(retrieve("protein", "AAA29796.1,PKU88155.1", "gp"), "done")
         # Test that retrieved files exist in correct location
