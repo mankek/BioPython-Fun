@@ -63,18 +63,23 @@ $(document).ready(function(){
     })
 
     if (preview != "None") {
-        var content = preview[0][name]
-        var id = content["id"]
-        var description = content["description"]
-        var seq_length = content["Sequence length"]
-        var features = content["features"]
-        var source = content["from"]
-        alert("Id: " + String(id) + "\nDescription: " + String(description) +
-        "\nSequence Length: " + String(seq_length) + "\nFeatures: " + String(features) + "\nSource: " + String(source))
-//        var myWindow = window.open("", "MsgWindow");
-//        myWindow.document.writeln("<b>The result is as follows:</b>")
-//        myWindow.document.write(String(preview))
-        location.replace("http://127.0.0.1:5000/");
+        if (preview == "Not Available"){
+            alert("Not Available");
+            location.replace("http://127.0.0.1:5000/");
+        }else{
+            var content = preview[0][name]
+            var id = content["id"]
+            var description = content["description"]
+            var seq_length = content["Sequence length"]
+            var features = content["features"]
+            var source = content["from"]
+            alert("Id: " + String(id) + "\nDescription: " + String(description) +
+            "\nSequence Length: " + String(seq_length) + "\nFeatures: " + String(features) + "\nSource: " + String(source))
+    //        var myWindow = window.open("", "MsgWindow");
+    //        myWindow.document.writeln("<b>The result is as follows:</b>")
+    //        myWindow.document.write(String(preview))
+            location.replace("http://127.0.0.1:5000/");
+        }
     }
 })
 

@@ -3,6 +3,7 @@ from Bio import Entrez, SeqIO
 from Bio.SeqUtils import GC, GC_skew
 import os
 import shutil
+from urllib import error
 Entrez.email = "emailtestforkm@gmail.com"
 
 global_record = {}
@@ -32,17 +33,20 @@ def retrieve(db, acc_num, rettype):
 def preview(db, acc_num, rettype):
     result = []
     retmode = "text"
-    for i in acc_num.split(","):
-        with Entrez.efetch(db=db, id=i.lstrip(" "), rettype=rettype, retmode=retmode, api_key="b88d297c7d1daf2c6d6c5a9a6efadcc82209") as handle:
-            if rettype == "gp":
-                parse_rettype = "gb"
-            else:
-                parse_rettype = rettype
-            for seq_rec in SeqIO.parse(handle, parse_rettype):
-                result.append({seq_rec.name: {"id": seq_rec.id, "description": seq_rec.description,
-                                              "Sequence length": len(seq_rec), "features": len(seq_rec.features),
-                                              "from": seq_rec.annotations["source"] if "source" in seq_rec.annotations.keys() else "NA"}})
-    return result
+    try:
+        for i in acc_num.split(","):
+            with Entrez.efetch(db=db, id=i.lstrip(" "), rettype=rettype, retmode=retmode, api_key="b88d297c7d1daf2c6d6c5a9a6efadcc82209") as handle:
+                if rettype == "gp":
+                    parse_rettype = "gb"
+                else:
+                    parse_rettype = rettype
+                for seq_rec in SeqIO.parse(handle, parse_rettype):
+                    result.append({seq_rec.name: {"id": seq_rec.id, "description": seq_rec.description,
+                                                  "Sequence length": len(seq_rec), "features": len(seq_rec.features),
+                                                  "from": seq_rec.annotations["source"] if "source" in seq_rec.annotations.keys() else "NA"}})
+        return result
+    except error.HTTPError:
+        return "Not Available"
 
 
 def upload(file_path, db):
